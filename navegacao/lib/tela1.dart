@@ -5,12 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 //criando a classe pessoa - que vai fabricar pessoas
 class Pessoa {
+  String id;
   String nome;
   String email;
   String telefone;
   String endereco;
   String cidade;
-  Pessoa(this.nome, this.email, this.telefone,  this.endereco, this.cidade);
+  Pessoa(this.id ,this.nome, this.email, this.telefone,  this.endereco, this.cidade);
 }
 //criando a tela de cadastro
 class Cadastro extends StatefulWidget {
@@ -67,6 +68,7 @@ class _CadastroState extends State<Cadastro>{
               setState(() { 
                 //criação de um novo objeto pessoa "Ex: Seu Arlindo"
                 Pessoa pessoaNova = Pessoa(
+                  "",
                   nomeControle.text,
                   emailControle.text,
                   telefoneControle.text,

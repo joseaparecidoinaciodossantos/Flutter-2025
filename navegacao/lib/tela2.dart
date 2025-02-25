@@ -26,11 +26,26 @@ class Tabela extends State<TabelaPai> {
     final resposta = await http.get(url);
     // decodificando o arquivijson que recebemos
     final Map<String, dynamic> ? dados = jsonDecode(resposta.body);
-    print(dados);
+  if(dados != null){
+    //foreach é o loop de repetiçâo que lista a um;
+    dados.forEach((id, dadosPessoa){
+      //aqui atualizar a lista e adicionar uma pessoa por vés
+      setState(() {
+        Pessoa pessoaNova = Pessoa(
+          id,
+          dadosPessoa["nome"] ?? '',
+          dadosPessoa["email"] ?? '',
+          dadosPessoa["telefone"] ?? '',
+          dadosPessoa["endereco"] ?? '',
+          dadosPessoa["cidade"] ?? ''
+          
+        );
+        pessoas.add(pessoaNova);
+    });
 
+  });
   }
-
-
+  }
   Future<void> abrirWhats(String telefone) async {
   final url = Uri.parse('https://wa.me/$telefone');
   if (!await launchUrl(url)) {
@@ -62,23 +77,41 @@ class Tabela extends State<TabelaPai> {
               "\n Endereço: " + pessoas[index].endereco +
               "\n cidade: " + pessoas[index].cidade
               ),
-              trailing: IconButton(
+              trailing:
+              Row(
+              mainAxisSize:MainAxisSize.min,
+              children: [
+                 IconButton(
                 onPressed: () => abrirWhats(pessoas[index].telefone),
-                icon: Icon(Icons.message)
+                icon: Icon(Icons.message, color:Colors.green,)
+                 ),
+                  IconButton(
+                onPressed: () => abrirWhats(pessoas[index].telefone),
+                icon: Icon(Icons.delete_rounded, color: Colors.red,)
+               ),
+              ],
               
               ),
               
-            );
+              
+              );
+
           }
-        ),
-      ),
+              ),
+             
+              
+            ),
+  
     );
+      
+      
+    
   }
-
-  
-  
-
 }
+  
+  
+
+
 
 
 
