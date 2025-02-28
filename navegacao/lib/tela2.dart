@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:navegacao/detalhes.dart';
 import 'package:navegacao/tela1.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:http/http.dart' as http;
@@ -19,6 +20,19 @@ class Tabela extends State<TabelaPai> {
   }
   final List<Pessoa> pessoas = [];
  // Tabela({required this.pessoas});
+
+ //Construindo método de exclusão
+ Future<void> excluir(String id) async {
+final url = Uri.parse("https://senac2025-1a776-default-rtdb.firebaseio.com/pessoa/$id.json");
+               final resposta = await http.delete(url);
+
+               if(resposta.statusCode == 200){
+                setState(() {
+                  pessoas.clear();
+                  buscarPessoas();
+                });
+               }
+ }
 
 
   Future<void> buscarPessoas() async {
@@ -72,10 +86,9 @@ class Tabela extends State<TabelaPai> {
               leading: Icon(Icons.person),
               title: Text(pessoas[index].nome),
               subtitle: Text(
-              "Tel: " + pessoas[index].telefone + 
-              "\n Email: " + pessoas[index].email +
-              "\n Endereço: " + pessoas[index].endereco +
-              "\n cidade: " + pessoas[index].cidade
+               
+              "Email: " + pessoas[index].email 
+  
               ),
               trailing:
               Row(
@@ -86,12 +99,18 @@ class Tabela extends State<TabelaPai> {
                 icon: Icon(Icons.message, color:Colors.green,)
                  ),
                   IconButton(
-                onPressed: () => abrirWhats(pessoas[index].telefone),
-                icon: Icon(Icons.delete_rounded, color: Colors.red,)
-               ),
+                onPressed: () => excluir(pessoas[index].id),
+                icon: Icon(Icons.delete_rounded, color: Colors.red,
+                ),
+                  ),
               ],
               
-              ),
+          ),//quando clicar no item da lista (onTap)
+          onTap: () {
+
+            Navigator.push(context,
+            MaterialPageRoute(builder: (context) => Detalhes(pessoa: pessoas[index],)));
+          },
               
               
               );

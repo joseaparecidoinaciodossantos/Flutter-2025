@@ -33,7 +33,7 @@ class _CadastroState extends State<Cadastro>{
 
   //criando metodo de cadastro - metodo API de post
   Future<void> cadastrarPessoa(Pessoa pessoa) async {
-    final url = Uri.parse("https://aplicativotransito-5710d-default-rtdb.firebaseio.com/pessoa.json");
+    final url = Uri.parse("https://senac2025-1a776-default-rtdb.firebaseio.com/pessoa.json");
     final resposta = await http.post(url, body: jsonEncode({
     "nome":pessoa.nome,
     "email": pessoa.email,
