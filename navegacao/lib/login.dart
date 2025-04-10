@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:navegacao/main.dart';
 
 void main(){
   runApp(Preconfiguracao());
@@ -29,53 +30,57 @@ class Login extends StatefulWidget{
 
 
 @override
-class LoginEstado extends State<Login>{
+  class LoginEstado extends State<Login>{
   final emailControle = TextEditingController();
- final senhaControle = TextEditingController();
+  final senhaControle = TextEditingController();
   bool estaCarregando = false;
-  String mensagemErro = '';
+  String mensagemErro ='';
   bool ocultado = true;
-
-  Future<void> logar() async{
+  
+  Future<void> logar() async {
+    //inicia animação de carregamento 
     setState(() {
+      estaCarregando = true;
+      mensagemErro = '';
+    });
 
-    //inicia animação de carregamento
-    estaCarregando = true;
-    mensagemErro = '';
-  });
-
-  final url = Uri.parse('https://aplicativotransito-5710d-default-rtdb.firebaseio.com/usuario.json');
-  final resposta = await http.get(url);
-  //se tudo estiver certo...override
-    // TODO: implement ==
-    if(resposta.statusCode== 200){
+    final url = Uri.parse('https://aplicativotransito-5710d-default-rtdb.firebaseio.com/usuario.json');
+    final resposta = await http.get(url);
+    //se tudo estiver certo...
+    if(resposta.statusCode == 200){
       final Map<String, dynamic>? dados = jsonDecode(resposta.body);
 
-if(dados != null){
-   bool usuarioValido = false;
-   String nomeUsuario = '';
-
-      dados.forEach(key, valor){
-        if(valor['email'] == emailControle.text && valor['senha'] == senhaControle.text){
-          usuarioValido == true;
-          nomeUsuario = valor['usuario'];
-        }
-      });
-    }
-    //se o usuario for valido, ou seja ,se tiver no banco
-    if(usuarioValido = true){
-      Navigator.pushReplacement(context,MaterialPageRoute(builder: (context) =>Apliactivo));
-    }
-
-}
+      if(dados != null){
+        bool usuarioValido = false;
+        String nomeUsuario = ''; 
+        dados.forEach((key, valor){ 
+          if(valor['email'] == emailControle.text && 
+          valor['senha'] == senhaControle.text ){
+            usuarioValido = true;
+            nomeUsuario = valor['nome'];
+          }
+         });
+        //se o usuario for valido, ou seja, se tiver no banco
+         if(usuarioValido == true){
+          Navigator.pushReplacement(context, 
+          MaterialPageRoute(builder: (context) => Aplicativo(nomeUsuario: nomeUsuario,)));
+         }else{
+          setState(() {
+            mensagemErro = "Email ou senha inválidos";
+            estaCarregando = false;
+          });
+          
+         }
+      }
     }else{
       setState(() { mensagemErro = 'Erro de conexão'; });
-        
-      }
-}
-       
-  @override
+    }
+  }
 
+  
+
+
+  @override
   Widget build(BuildContext context) {
     
     return Scaffold(
@@ -121,7 +126,7 @@ if(dados != null){
           ),
           SizedBox(height: 30,),
           estaCarregando ? CircularProgressIndicator() :
-          ElevatedButton(onPressed: null, child: Text('Entrar')),
+          ElevatedButton(onPressed: logar, child: Text('Entrar')),
          TextButton(onPressed: (){
                 Navigator.push(context, MaterialPageRoute(builder: (context) => Cadastro()));
               }, child: Text('Não tem uma conta? cadastre-se'),),    

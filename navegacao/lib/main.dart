@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:navegacao/Postagem.dart';
 import 'package:navegacao/tela1.dart';
 import 'package:navegacao/tela2.dart';
 import 'package:navegacao/tela3.dart';
 import 'package:navegacao/tela4.dart';
 
 //classe principal inicia o projeto
-void main() => runApp(Aplicativo());
+
 
 //Classe pai que configura todo nosso app herda tipo stateless
 class Aplicativo extends StatelessWidget {
   final List<Pessoa> pessoas = [];
+   final String nomeUsuario;
+  Aplicativo({required this.nomeUsuario});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -20,8 +23,8 @@ class Aplicativo extends StatelessWidget {
       routes: {
         '/tela1': (context) => Cadastro(pessoas:pessoas),
         '/tela2': (context) => TabelaPai(),
-        '/tela3': (context) => Tela3(),
-        '/tela4': (context) => Tela4(),
+        '/tela3': (context) => CadastrarPostagem(username:nomeUsuario),
+        '/tela4': (context) => VerPostagens(),
       },
     );
   }
@@ -41,7 +44,7 @@ class Menu extends StatelessWidget {
           children: <Widget> [
             botao(texto: 'Cadastrar', rota:'/tela1', icone: Icons.person_add_alt_1, cor: Colors.white),
             botao(texto: 'Listar', rota:'/tela2', icone: Icons.list, cor: Colors.white),
-            botao(texto: 'Sobre', rota:'/tela3', icone: Icons.not_listed_location, cor: Colors.white),
+            botao(texto: 'criar postagem', rota:'/tela3', icone: Icons.not_listed_location, cor: Colors.white),
             botao(texto: 'Contato', rota:'/tela4', icone: Icons.phone_in_talk_sharp, cor: Colors.white),
 
           ],
