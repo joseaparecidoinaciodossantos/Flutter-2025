@@ -25,6 +25,7 @@ class Aplicativo extends StatelessWidget {
         '/tela2': (context) => TabelaPai(),
         '/tela3': (context) => CadastrarPostagem(username:nomeUsuario),
         '/tela4': (context) => VerPostagens(),
+        '/tela5': (context) => minhasPostagens(username:nomeUsuario),
       },
     );
   }
@@ -45,7 +46,8 @@ class Menu extends StatelessWidget {
             botao(texto: 'Cadastrar', rota:'/tela1', icone: Icons.person_add_alt_1, cor: Colors.white),
             botao(texto: 'Listar', rota:'/tela2', icone: Icons.list, cor: Colors.white),
             botao(texto: 'criar postagem', rota:'/tela3', icone: Icons.not_listed_location, cor: Colors.white),
-            botao(texto: 'Contato', rota:'/tela4', icone: Icons.phone_in_talk_sharp, cor: Colors.white),
+            botao(texto: 'ver postagem', rota:'/tela4', icone: Icons.phone_in_talk_sharp, cor: Colors.white),
+            botao(texto: 'minhas postagens', rota:'/tela5', icone: Icons.phone_in_talk_sharp, cor: Colors.white),
 
           ],
         ),

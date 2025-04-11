@@ -81,6 +81,7 @@ class VerPostagens extends StatelessWidget{
     dados.forEach((key, valor){
       posts.add({
         'titulo': valor['titulo'],
+        
         'conteudo': valor['conteudo'],
         'autor': valor['autor'],
         'imagem': valor['imagem'],
@@ -118,16 +119,126 @@ class VerPostagens extends StatelessWidget{
                 child: Column(
                   children: [
                     post['imagem'] == null || post['imagem'].isEmpty? SizedBox() : 
-                    Image.network(post['imagem'], width: 400,) ,
+                    
+   ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: post['imagem'] == null || post['imagem'].isEmpty? SizedBox() :  Image.network(post['imagem'], width: 400,) ,
+                    ),
+                    
                     Padding(
                       padding: EdgeInsets.all(8.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(post['titulo']),
+                         	Text(post['titulo'], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
                           SizedBox(height: 8,),
                           Text(post['conteudo']),
-                          Text(post['autor']),
+                          SizedBox(height: 16,),
+                          Icon(Icons.person_pin, color:Colors.blue,),
+                          Text("Autor: "+post['autor'], style: TextStyle(fontSize: 14, color: Colors.blue),),
+                        ],
+                      ),
+                    ),
+                  ],  
+                ),
+              );
+            },
+          );
+
+        },
+      ),
+    ); }}
+
+ // Criar classe minhas postagensdo tipo Statefull   
+class MinhasPostagens extends StatefulWidget{
+
+  final String username;
+  MinhasPostagens({required this.username});
+
+  @override
+  MinhasPostagensEstado createState() => MinhasPostagensEstado();
+}
+
+
+
+   class MinhasPostagensEstado extends State<MinhasPostagens>{
+    // Modificar a antiga MinhasPostagens
+
+
+
+  Future<void> deletar(String id) async{
+    final url= Uri.parse("https://aplicativotransito-5710d-default-rtdb.firebaseio.com/$id.json");
+    await http.delete(url);
+  }
+
+  Future<List<Map<String, dynamic>>> buscarPostagens() async{
+    final url = Uri.parse('https://aplicativotransito-5710d-default-rtdb.firebaseio.com/$id.json');
+    final resposta = await http.get(url);
+    final Map<String, dynamic> dados = jsonDecode(resposta.body);
+    //criando lista de objetos posts
+    final List<Map<String, dynamic>> posts = [];
+    dados.forEach((key, valor){
+      if(valor['autor'] ==widget.username){
+      posts.add({
+        'id':key,
+        'titulo': valor['titulo'],
+        
+        'conteudo': valor['conteudo'],
+        'autor': valor['autor'],
+        'imagem': valor['imagem'],
+      });
+      }
+    });
+    return posts;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text(" minhas postagens! ",) ,backgroundColor: Colors.blue,
+      foregroundColor: Colors.white,),
+      body: FutureBuilder<List<Map<String,dynamic>>>(
+        future: buscarPostagens(),
+        builder: (context, snapshot){
+          if(snapshot.connectionState == ConnectionState.waiting){
+            return Center(child: CircularProgressIndicator());
+          }
+          if(snapshot.hasError){ 
+            return Center(child: Text("Erro ao carregar postagens!"),); 
+          }
+          if(!snapshot.hasData || snapshot.data!.isEmpty){
+            return Center(child: Text("Sem postagens para exibir"));
+          }
+          //lista de posts
+          final posts = snapshot.data!;
+          return ListView.builder(
+            itemCount: posts.length,
+            itemBuilder: (context, index){
+            final post = posts[index];
+              return Card(
+                elevation: 5,
+                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                child: Column(
+                  children: [
+                    post['imagem'] == null || post['imagem'].isEmpty? SizedBox() : 
+                    
+   ClipRRect(
+                      borderRadius: BorderRadius.circular(16),
+                      child: post['imagem'] == null || post['imagem'].isEmpty? SizedBox() :  Image.network(post['imagem'], width: 400,) ,
+                    ),
+                    
+                    Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                         	Text(post['titulo'], style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),),
+                          SizedBox(height: 8,),
+                          Text(post['conteudo']),
+                          SizedBox(height: 16,),
+                          Icon(Icons.person_pin, color:Colors.blue,),
+                          Text("Autor: "+post['autor'], style: TextStyle(fontSize: 14, color: Colors.blue),),
+                          ElevatedButton(onPressed: () async { deletar(post['id']);}, child: Icon(Icons.delete, color: Colors.red,))
                         ],
                       ),
                     ),
