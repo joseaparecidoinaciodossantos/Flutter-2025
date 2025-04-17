@@ -12,7 +12,7 @@ class Detalhes extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("detalhes do contato"),
-      backgroundColor: Colors.indigo,), //AppBar    )
+      backgroundColor: Color.fromARGB(255, 4, 236, 116),), //AppBar    )
     
     body: Center(
      child: Padding(
@@ -21,7 +21,7 @@ class Detalhes extends StatelessWidget {
      mainAxisAlignment: MainAxisAlignment.center,
      crossAxisAlignment: CrossAxisAlignment.center,
      children: [
-      Icon(Icons.person,size: 100, color: Colors.blue,),
+      Icon(Icons.person,size: 100, color: const Color.fromARGB(255, 140, 140, 140),),
       SizedBox(height: 20,),
       Text(pessoa.nome, style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),),
       SizedBox(height: 10,),

@@ -6,7 +6,7 @@ class Tela3 extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Tela 3', style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: Color.fromARGB(255, 4, 236, 116),
       ),
     );
   }

@@ -17,7 +17,7 @@ class Aplicativo extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Menu Principal',
-      theme: ThemeData.dark(),
+      theme: ThemeData.light(),
       home: Menu(),
       debugShowCheckedModeBanner: false,
       routes: {
@@ -25,7 +25,7 @@ class Aplicativo extends StatelessWidget {
         '/tela2': (context) => TabelaPai(),
         '/tela3': (context) => CadastrarPostagem(username:nomeUsuario),
         '/tela4': (context) => VerPostagens(),
-        '/tela5': (context) => minhasPostagens(username:nomeUsuario),
+        '/tela5': (context) => MinhasPostagens(username:nomeUsuario),
       },
     );
   }
@@ -37,7 +37,7 @@ class Menu extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Menu Principal', style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.deepPurpleAccent,
+        backgroundColor: const Color.fromARGB(255, 4, 236, 116),
       ),
       body: Center(
         child: GridView.count(
@@ -45,9 +45,9 @@ class Menu extends StatelessWidget {
           children: <Widget> [
             botao(texto: 'Cadastrar', rota:'/tela1', icone: Icons.person_add_alt_1, cor: Colors.white),
             botao(texto: 'Listar', rota:'/tela2', icone: Icons.list, cor: Colors.white),
-            botao(texto: 'criar postagem', rota:'/tela3', icone: Icons.not_listed_location, cor: Colors.white),
-            botao(texto: 'ver postagem', rota:'/tela4', icone: Icons.phone_in_talk_sharp, cor: Colors.white),
-            botao(texto: 'minhas postagens', rota:'/tela5', icone: Icons.phone_in_talk_sharp, cor: Colors.white),
+            botao(texto: 'criar postagem', rota:'/tela3', icone: Icons.mail, cor: Colors.white),
+            botao(texto: 'ver postagem', rota:'/tela4', icone: Icons.insert_comment_sharp, cor: Colors.white),
+            botao(texto: 'minhas postagens', rota:'/tela5', icone: Icons.camera_alt_outlined, cor: Colors.white),
 
           ],
         ),
@@ -73,7 +73,7 @@ class botao extends StatelessWidget {
       padding: EdgeInsets.all(8.0),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: Colors.deepPurpleAccent,
+          backgroundColor: Color.fromARGB(255, 4, 236, 116),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30.0)),
         ),
         onPressed: () { Navigator.pushNamed(context, rota);  },

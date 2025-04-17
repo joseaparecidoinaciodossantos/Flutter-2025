@@ -73,7 +73,7 @@ final url = Uri.parse("https://senac2025-1a776-default-rtdb.firebaseio.com/pesso
     return Scaffold(
       appBar: AppBar(
         title: Text("Lista de Contatos"),
-        backgroundColor: Colors.red,
+        backgroundColor: Color.fromARGB(255, 4, 236, 116),
         foregroundColor: Colors.white,
       ),
       body: Padding(
@@ -96,7 +96,7 @@ final url = Uri.parse("https://senac2025-1a776-default-rtdb.firebaseio.com/pesso
               children: [
                  IconButton(
                 onPressed: () => abrirWhats(pessoas[index].telefone),
-                icon: Icon(Icons.message, color:Colors.green,)
+                icon: Icon(Icons.message, color:const Color.fromARGB(255, 183, 184, 183),)
                  ),
                   IconButton(
                 onPressed: () => excluir(pessoas[index].id),

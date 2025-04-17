@@ -86,14 +86,14 @@ class Login extends StatefulWidget{
     return Scaffold(
 
     appBar: AppBar(title: Text('Tela de Login'),
-    backgroundColor: Colors.lightBlue, foregroundColor: Colors.white,),
+    backgroundColor: Color.fromARGB(255, 4, 236, 116), foregroundColor: Colors.white,),
 
     body: Padding(
       padding: EdgeInsets.all(16.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.person_pin, size: 100, color: Colors.blue,),
+          Icon(Icons.person_pin, size: 100, color: Color.fromARGB(255, 182, 182, 182),),
           SizedBox(height: 20,),
           TextField(
             controller: emailControle,
@@ -101,7 +101,7 @@ class Login extends StatefulWidget{
               labelText: 'E-mail',
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.email),
-              prefixIconColor: Colors.blue,
+              prefixIconColor: Color.fromARGB(255, 186, 186, 186),
 
             ),
           ),
@@ -113,7 +113,7 @@ class Login extends StatefulWidget{
               labelText: 'Senha',
               border: OutlineInputBorder(),
               prefixIcon: Icon(Icons.lock),
-              prefixIconColor: Colors.blue,
+              prefixIconColor: Color.fromARGB(255, 177, 177, 177),
               suffixIcon: IconButton(
                 icon: Icon (ocultado ? Icons.visibility : Icons.visibility_off),
                 onPressed: () {
@@ -184,12 +184,12 @@ class CadastroEstado extends State<Cadastro> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Cadastro de novo usuario'),
-      backgroundColor: Colors.blue,),
+      backgroundColor: Color.fromARGB(255, 4, 236, 116),),
       body: Padding(
         padding: EdgeInsets.all(16.0),
          child: Column(
           children: [
-               Icon(Icons.person_pin, size: 100, color: Colors.blue,),
+               Icon(Icons.person_pin, size: 100, color: Color.fromARGB(255, 4, 236, 116),),
             SizedBox(height: 20,),
             TextField(
               controller: emailControle,
@@ -197,7 +197,7 @@ class CadastroEstado extends State<Cadastro> {
                  labelText:'email',
                  border: OutlineInputBorder(),
                prefixIcon: Icon(Icons.email),
-               prefixIconColor: Colors.blue, 
+               prefixIconColor: Color.fromARGB(255, 4, 236, 116), 
                ),
             ),
             SizedBox(height: 20,),
@@ -207,7 +207,7 @@ class CadastroEstado extends State<Cadastro> {
                 labelText:'Seu nome',
                 border: OutlineInputBorder(),
                 prefixIcon: Icon(Icons.person),
-                prefixIconColor:Colors.blue,   
+                prefixIconColor:Color.fromARGB(255, 4, 236, 116),   
                ),
             ),
 
@@ -219,7 +219,7 @@ class CadastroEstado extends State<Cadastro> {
                   labelText: 'Senha',
                   border: OutlineInputBorder(),
                   prefixIcon: Icon(Icons.lock),
-                  prefixIconColor: Colors.blue,
+                  prefixIconColor: Color.fromARGB(255, 4, 236, 116),
                   suffixIcon: IconButton(
                     icon: Icon(ocultado ? Icons.visibility : Icons.visibility_off),
                     onPressed: () {setState(() {ocultado = !ocultado;
@@ -232,7 +232,7 @@ class CadastroEstado extends State<Cadastro> {
              estaCarregando ? CircularProgressIndicator() : ElevatedButton(
               onPressed: cadastrar, child: Text('Cadastrar'),
               ),
-              erro.isNotEmpty ? Text(erro, style: TextStyle(color:Colors.red)): SizedBox(),
+              erro.isNotEmpty ? Text(erro, style: TextStyle(color:const Color.fromARGB(255, 17, 187, 34))): SizedBox(),
           ],
          ),
          ),

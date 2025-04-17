@@ -48,7 +48,7 @@ class _CadastroState extends State<Cadastro>{
   return Scaffold(
     appBar: AppBar(
       title: Text("Cadastro de Pessoas"),
-       backgroundColor: Colors.green,
+       backgroundColor: Color.fromARGB(255, 4, 236, 116),
     ),
     body: Padding(
       padding: EdgeInsets.all(16.0),
@@ -89,7 +89,7 @@ class _CadastroState extends State<Cadastro>{
             },
             child: Text("Salvar"), 
             style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.green,
+              backgroundColor: Color.fromARGB(255, 173, 173, 173),
               foregroundColor: Colors.white
             ),
             
