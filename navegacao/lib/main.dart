@@ -36,7 +36,7 @@ class Menu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Menu Principal', style: TextStyle(color: Colors.white),),
+        title: Text('Seja Bem Vindos', style: TextStyle(color: Colors.white),),
         backgroundColor: const Color.fromARGB(255, 4, 236, 116),
       ),
       body: Center(
